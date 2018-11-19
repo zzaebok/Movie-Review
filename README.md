@@ -21,9 +21,11 @@
     
 **실행 화면**
 - Training
+
 ![training_img](./img/training.png)
 
 - Test
+
 ![test_img](./img/test.png)
 
 p.s 사용하는 노트북 상에서 메모리가 부족하여 google colab에서 작업하였습니다.
