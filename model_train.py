@@ -31,8 +31,8 @@ flags.DEFINE_string('dataset', params['default_training_data_path'], 'training d
 flags.DEFINE_string('testset', params['default_test_data_path'], 'test data path')
 config = flags.FLAGS
 
-word_dict = making_word_dictionary()
-word_emb = making_word_embedding(word_dict)
+word_dict = make_word_dictionary()
+word_emb = make_word_embedding(word_dict)
 
 sess_config = tf.ConfigProto(allow_soft_placement=True)
 sess_config.gpu_options.allow_growth = True
