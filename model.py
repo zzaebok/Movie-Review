@@ -31,7 +31,7 @@ class Model:
                 h = self.self_attention(h)
                 weight = tf.get_variable(name='weight', shape=[2*cfg.num_units, 2*cfg.num_units], dtype=tf.float32)  ###
                 h = tf.nn.tanh(tf.matmul(h, weight))
-				h = tf.nn.dropout(h, 0.5)
+				h = tf.nn.dropout(h, keep_prop=0.5)
 
             with tf.variable_scope('compute_logits'):
                 context_logits = self.ffn_layer(h, cfg.hidden_units, cfg.num_classes, scope='ffn_layer')
