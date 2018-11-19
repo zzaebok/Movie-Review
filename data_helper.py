@@ -59,6 +59,7 @@ def make_word_embedding(word_dict, word_emb_pkl_path = params['default_word_emb_
         print('Making word_emb ... Done and Saved')
         with open(word_emb_pkl_path, 'wb') as f:
             pickle.dump(word_emb, f)
+    global global_word_dict
     global_word_dict = word_dict
     return word_emb
 
