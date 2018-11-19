@@ -25,7 +25,7 @@ flags = tf.flags
 flags.DEFINE_integer('num_units', 128, 'number of LSTM units')
 flags.DEFINE_integer('hidden_units', 128, 'number of hidden units in ffn')
 flags.DEFINE_integer('num_classes', 2, 'number of classes')
-flags.DEFINE_integer('epochs', 2, 'epochs')
+flags.DEFINE_integer('epochs', 5, 'epochs')
 flags.DEFINE_integer('batch_size', params['batch_size'], 'batch_size')
 flags.DEFINE_float('lr', params['learning_rate'], 'batch_size')
 flags.DEFINE_string('dataset', params['default_training_data_path'], 'training data path')

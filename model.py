@@ -11,7 +11,7 @@ class Model:
         #placeholders, get data from data_iterator
         self.context = tf.placeholder(name='context', shape=[None, None], dtype=tf.int32)
         self.seq_len = tf.placeholder(name='sequence_length', shape=[None], dtype=tf.int32)
-        self.labels = tf.placeholder(name='labels', shape=[None, 2], dtype=tf.float32)
+        self.labels = tf.placeholder(name='labels', shape=[None, cfg.num_classes], dtype=tf.float32)
 
         #hyper-parameter placeholders
         self.lr = tf.placeholder(name='learning_rate', dtype=tf.float32)
@@ -42,7 +42,7 @@ class Model:
                 self.train_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss)
 
             with tf.variable_scope('accuracy'):
-                self.pred = tf.argmax(tf.nn.softmax(context_logits),1,name='prediction', )
+                self.pred = tf.argmax(tf.nn.softmax(context_logits),1,name='prediction')
                 num_correct_pred = tf.equal(self.pred, tf.argmax(self.labels, 1))
                 self.accuracy = tf.reduce_mean(tf.cast(num_correct_pred, tf.float32))
 
@@ -76,4 +76,5 @@ class Model:
                                    initializer=tf.constant_initializer(bias_init))
             output = tf.nn.bias_add(output, bias)
             output = activation(output)
+
             return output
