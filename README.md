@@ -2,7 +2,7 @@
 
 ## **bi_LSTM과 Self_attention을 이용한 영화 리뷰 극성파악 (긍/부정 파악)**
 
-**실행 과정**
+## **실행 방법**
 1. model_train.py 실행
 	- ratings_train.txt 파일을 통해 단어 임베딩 lookup table 생성
     - lookup table를 사용하여, 각 리뷰를 벡터들로 표현
@@ -23,7 +23,8 @@
 
 p.s 사용하는 노트북 상에서 메모리가 부족하여 google colab에서 작업하였습니다.
 
-**데이터**
+## **데이터**
+
 bi_LSTM을 이용한 영화 리뷰 극성파악은 아래를 참고하였습니다.
 (https://github.com/MSWon/Sentimental-Analysis)
 
