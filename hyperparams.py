@@ -8,7 +8,7 @@ params = {
     'default_training_data_path':'/content/drive/My Drive/Colab Notebooks/Movie Review/Data/ratings_train.txt',
     'default_test_data_path':'/content/drive/My Drive/Colab Notebooks/Movie Review/Data/ratings_test.txt',
     'max_seq_length':40,
-    'min_vocab_count':30,
+    'min_vocab_count':20,
     'word_emb_dim':200, #it should be matched with pre-trained word embedding dimension
     'batch_size':300,
     'learning_rate':0.01,
