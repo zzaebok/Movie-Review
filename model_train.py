@@ -42,7 +42,7 @@ with tf.Session(config=sess_config) as sess:
     sess.run(tf.global_variables_initializer())
     saver = tf.train.Saver()
     for epoch in range(config.epochs):
-        for i, data in enumerate(datset_iterator(config.dataset, word_dict, config.batch_size)):
+        for i, data in enumerate(dataset_iterator(config.dataset, word_dict, config.batch_size)):
             feed_dict={
                 model.context : data[0],
                 model.lr:config.lr-i/5000,
@@ -60,7 +60,7 @@ with tf.Session(config=sess_config) as sess:
         test_batch = int(total_size / 300) + 1
 
     total_acc = 0
-    for i,data in enumerate(datset_iterator(config.testset, word_dict, config.batch_size)):
+    for i,data in enumerate(dataset_iterator(config.testset, word_dict, config.batch_size)):
         feed_dict = {
             model.context:data[0],
             model.lr:config.lr, #not important
