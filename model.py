@@ -15,10 +15,6 @@ class Model:
 
         #hyper-parameter placeholders
         self.lr = tf.placeholder(name='learning_rate', dtype=tf.float32)
-        self.keep_prop = tf.placeholder(name='keep_prop', dtype=tf.float32)
-        self.batch_size = tf.placeholder(name='batch_size', dtype=tf.int32)
-
-        self.pred = tf.Variable(tf.random_normal(shape=[1]), name='prediction',  dtype=tf.float32)
 
         with tf.device('/gpu:0'):
             with tf.variable_scope('context_lookup_table'):
@@ -46,17 +42,12 @@ class Model:
                 self.train_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss)
 
             with tf.variable_scope('accuracy'):
-                self.pred = tf.argmax(tf.nn.softmax(context_logits),1)
+                self.pred = tf.argmax(tf.nn.softmax(context_logits),1,name='prediction', )
                 num_correct_pred = tf.equal(self.pred, tf.argmax(self.labels, 1))
                 self.accuracy = tf.reduce_mean(tf.cast(num_correct_pred, tf.float32))
 
     def self_attention(self, inputs):
-        # input = [ [(output_fw) (output_bw)] ] // 각각 output_fw, bw 는 num_uits 차원으로 되어있음 #??
-        #        [                         ]
-        #        [                         ]
         hidden_size = inputs.shape[2].value
-        # concat 한 게 인풋이니까 hidden dim = 200
-
         with tf.variable_scope('self_attn'):
             x_proj = tf.layers.Dense(hidden_size)(inputs)
             x_proj = tf.nn.tanh(x_proj)

@@ -19,6 +19,7 @@ import sys
 sys.path.insert(0, '/content/drive/My Drive/Colab Notebooks/')
 sys.path.insert(0, '/content/drive/My Drive/Colab Notebooks/Movie Review')
 '''
+tf.reset_default_graph()
 
 flags = tf.flags
 flags.DEFINE_integer('num_units', 128, 'number of LSTM units')
@@ -44,6 +45,7 @@ word_emb = make_word_embedding(word_dict)
 
 sess_config = tf.ConfigProto(allow_soft_placement=True)
 sess_config.gpu_options.allow_growth = True
+
 with tf.Session(config=sess_config) as sess:
     print('build model...')
     model = Model(config)
@@ -60,7 +62,7 @@ with tf.Session(config=sess_config) as sess:
             }
             _, losses = sess.run([model.train_op, model.loss], feed_dict=feed_dict)
             total_loss += losses/train_batch
-        print('training loss = ', total_loss)
+        print('step : ', epoch+1, '  training loss = ', total_loss)
     print('training Done ...')
     print()
     print('Accuracy calculation started ...')

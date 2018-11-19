@@ -12,6 +12,6 @@ params = {
     'word_emb_dim':200, #it should be matched with pre-trained word embedding dimension
     'batch_size':300,
     'learning_rate':0.01,
-    'SAVER_DIR':'/content/drive/My Drive/Colab Notebooks/Moview Review/ckpt'
+    'SAVER_DIR':'/content/drive/My Drive/Colab Notebooks/Movie Review/ckpt'
 
 }
