@@ -24,7 +24,8 @@ class Model:
             with tf.variable_scope('context_lookup_table'):
                 with open(params['default_word_emb_pkl_path'], 'rb') as f:
                     word_emb = pickle.load(f)
-                context_emb = tf.nn.embedding_lookup(word_emb, self.context)
+                word_embeddings = tf.constant(word_emb, dtype=tf.float32)
+                context_emb = tf.nn.embedding_lookup(word_embeddings, self.context)
 
             with tf.variable_scope('context_representation'):
                 cell_fw = LSTMCell(num_units = cfg.num_units)
