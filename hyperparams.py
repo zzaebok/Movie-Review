@@ -5,7 +5,7 @@ params = {
     'default_fasttext_path':'/content/drive/My Drive/Colab Notebooks/Movie Review Polarity/Word_Embedding/ko/ko.bin',
     'default_word_dict_pkl_path':'/content/drive/My Drive/Colab Notebooks/Movie Review Polarity/Pickle/word_dict.pkl',
     'default_word_emb_pkl_path':'/content/drive/My Drive/Colab Notebooks/Movie Review Polarity/Pickle/word_emb.pkl',
-    'default_trainig_data_path':'/content/drive/My Drive/Colab Notebooks/Movie Review Polarity/Data/ratings_train.txt',
+    'default_training_data_path':'/content/drive/My Drive/Colab Notebooks/Movie Review Polarity/Data/ratings_train.txt',
     'default_test_data_path':'/content/drive/My Drive/Colab Notebooks/Movie Review Polarity/Data/ratings_test.txt',
     'max_seq_length':40,
     'min_vocab_count':10,
