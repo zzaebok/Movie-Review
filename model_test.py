@@ -1,3 +1,4 @@
+import os.path
 import tensorflow as tf
 from konlpy.tag import Okt
 import pickle
@@ -16,7 +17,7 @@ with open(params['default_word_emb_pkl_path'], 'rb') as f:
 tokenizer = Okt()
 SAVER_DIR = params['SAVER_DIR']
 
-saver = tf.train.import_meta_graph(SAVER_DIR + 'ckpt.meta')
+saver = tf.train.import_meta_graph(os.path.join(SAVER_DIR, 'ckpt.meta'))
 ckpt = tf.train.get_checkpoint_state(SAVER_DIR)
 config = tf.ConfigProto(allow_soft_placement=True)
 sess = tf.Session(config=config)
