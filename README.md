@@ -21,10 +21,10 @@
     
 **실행 화면**
 - Training
-![]({{site.baseurl}}//%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%8B%9D.png)
+![training_img](./img/training.png)
 
 - Test
-![]({{site.baseurl}}//%ED%85%8C%EC%8A%A4%ED%8A%B8.png)
+![test_img](./img/test.png)
 
 p.s 사용하는 노트북 상에서 메모리가 부족하여 google colab에서 작업하였습니다.
 
