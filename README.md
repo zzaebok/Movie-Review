@@ -19,7 +19,12 @@
     - 입력문을 lookup table을 통해 벡터로 표현, zero_padding
     - 모델을 이용하여 사용자의 입력문을 긍정 혹은 부정으로 판단
     
-실행 화면
+**실행 화면**
+- training
+	![트레이닝.png]({{site.baseurl}}/트레이닝.png)
+- test
+	![테스트.png]({{site.baseurl}}/테스트.png)
+
 
 p.s 사용하는 노트북 상에서 메모리가 부족하여 google colab에서 작업하였습니다.
 
