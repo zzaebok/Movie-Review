@@ -1,5 +1,4 @@
 import tensorflow as tf
-import numpy as np
 from tensorflow.python.ops.rnn_cell import LSTMCell
 from tensorflow.python.ops.rnn import bidirectional_dynamic_rnn
 from hyperparams import params

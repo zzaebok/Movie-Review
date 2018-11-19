@@ -38,7 +38,7 @@ while(1):
     tokens = tokenizer.morphs(sentence)
     sentence = [word_dict[word] if word in word_dict else word_dict['<unk>'] for word in tokens]
     sequence_length.append(len(tokens))
-    sentence = zero_padding(sentence)
+    sentence = zero_padding(sentence, word_dict)
     context = sentence
     prediction = sess.run(tf.argmax(model_pred, 1), feed_dict={model_context: context, model_seq_len: sequence_length})
     if prediction == 0:

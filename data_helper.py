@@ -1,7 +1,6 @@
 import os
 import os.path
 import numpy as np
-import gensim
 import pickle
 import codecs
 from konlpy.tag import Okt
@@ -10,7 +9,7 @@ from gensim.models import FastText
 
 #hyperparameters
 tokenizer = Okt()
-global_word_dict = dict()
+
 
 def make_word_dictionary(word_dict_pkl_path=params['default_word_dict_pkl_path'], training_data_path = params['default_training_data_path']):
     word_dict = dict()
@@ -37,9 +36,6 @@ def make_word_dictionary(word_dict_pkl_path=params['default_word_dict_pkl_path']
         print('Making word_dict ... Done and Saved')
         with open(word_dict_pkl_path, 'wb') as f:
             pickle.dump(word_dict, f)
-
-    global global_word_dict
-    global_word_dict = word_dict
     return word_dict
 
 def make_word_embedding(word_dict, word_emb_pkl_path = params['default_word_emb_pkl_path'], fasttext_path = params['default_fasttext_path']):
@@ -64,10 +60,10 @@ def make_word_embedding(word_dict, word_emb_pkl_path = params['default_word_emb_
             pickle.dump(word_emb, f)
     return word_emb
 
-def zero_padding(token_sentence):
+def zero_padding(token_sentence, word_dict):
     #input : [1,4,3,2,1,15]
     #output : [1,4,3,2,1,15,0,0,0,0]
-    return token_sentence + [global_word_dict[params['PAD']]]*(params['max_seq_length']-len(token_sentence))
+    return token_sentence + [word_dict[params['PAD']]]*(params['max_seq_length']-len(token_sentence))
 
 
 def dataset_iterator(filename, word_dict, batch_size):
@@ -88,7 +84,7 @@ def dataset_iterator(filename, word_dict, batch_size):
                 tokens = tokens[:params['max_seq_length']]
             sentence = [word_dict[word] if word in word_dict else word_dict['<unk>'] for word in tokens]
             sequence_length.append(len(sentence))
-            sentence = zero_padding(sentence)
+            sentence = zero_padding(sentence, word_dict)
             context.append(sentence)
 
             if len(context) == batch_size:
