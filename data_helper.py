@@ -86,7 +86,7 @@ def dataset_iterator(filename, word_dict, batch_size):
                 tokens = tokens[:params['max_seq_length']]
             sentence = [word_dict[word] if word in word_dict else word_dict['<unk>'] for word in tokens]
             sequence_length.append(len(sentence))
-            sentence = zero_padding(sentence, word_dict)
+            sentence = zero_padding(sentence)
             context.append(sentence)
 
             if len(context) == batch_size:
