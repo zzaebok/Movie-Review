@@ -6,11 +6,11 @@ from hyperparams import params
 
 max_length = params['max_seq_length']
 word_dict = []
-with open(params['default_word_dict_path'], 'rb') as f:
+with open(params['default_word_dict_pkl_path'], 'rb') as f:
     word_dict = pickle.load(f)
 
 word_emb = np.zeros([len(word_dict), 200])
-with open(params['default_word_emb_path'], 'rb') as f:
+with open(params['default_word_emb_pkl_path'], 'rb') as f:
     word_emb = pickle.load(f)
 
 tokenizer = Okt()
