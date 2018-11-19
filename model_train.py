@@ -19,11 +19,9 @@ import sys
 sys.path.insert(0, '/content/drive/My Drive/Colab Notebooks/')
 sys.path.insert(0, '/content/drive/My Drive/Colab Notebooks/Movie Review')
 '''
-tf.reset_default_graph()
-
 flags = tf.flags
-flags.DEFINE_integer('num_units', 128, 'number of LSTM units')
-flags.DEFINE_integer('hidden_units', 128, 'number of hidden units in ffn')
+flags.DEFINE_integer('num_units', 100, 'number of LSTM units')
+flags.DEFINE_integer('hidden_units', 100, 'number of hidden units in ffn')
 flags.DEFINE_integer('num_classes', 2, 'number of classes')
 flags.DEFINE_integer('epochs', 5, 'epochs')
 flags.DEFINE_integer('batch_size', params['batch_size'], 'batch_size')
@@ -66,7 +64,6 @@ with tf.Session(config=sess_config) as sess:
     print('training Done ...')
     print()
     print('Accuracy calculation started ...')
-
     total_acc = 0
     for i,data in enumerate(dataset_iterator(config.testset, word_dict, config.batch_size)):
         feed_dict = {

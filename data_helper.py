@@ -55,15 +55,16 @@ def make_word_embedding(word_dict, word_emb_pkl_path = params['default_word_emb_
                     word_emb[idx] = np.asarray(fasttext_model.wv[word])
                 except KeyError:
                     word_emb[idx] = np.random.uniform(-0.25, 0.25, params['word_emb_dim'])
-        print('Making word_emb ... Done and Saved')
         with open(word_emb_pkl_path, 'wb') as f:
             pickle.dump(word_emb, f)
+        print('Making word_emb ... Done and Saved')
     return word_emb
 
 def zero_padding(token_sentence, word_dict):
     #input : [1,4,3,2,1,15]
     #output : [1,4,3,2,1,15,0,0,0,0]
-    return token_sentence + [word_dict[params['PAD']]]*(params['max_seq_length']-len(token_sentence))
+    padded_sentence = token_sentence + [word_dict[params['PAD']]]*(params['max_seq_length']-len(token_sentence))
+    return padded_sentence
 
 
 def dataset_iterator(filename, word_dict, batch_size):
@@ -82,7 +83,7 @@ def dataset_iterator(filename, word_dict, batch_size):
             tokens = tokenizer.morphs(review)
             if len(tokens) > params['max_seq_length']:
                 tokens = tokens[:params['max_seq_length']]
-            sentence = [word_dict[word] if word in word_dict else word_dict['<unk>'] for word in tokens]
+            sentence = [word_dict[word] if word in word_dict else word_dict[params['UNK']] for word in tokens]
             sequence_length.append(len(sentence))
             sentence = zero_padding(sentence, word_dict)
             context.append(sentence)
