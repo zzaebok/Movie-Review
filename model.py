@@ -6,20 +6,20 @@ import pickle
 
 class Model:
     def __init__(self, cfg):
-        #placeholder values could be fed by 'feed_dict in main.py' or 'config in main.py'
-        #placeholders, get data from data_iterator
+
+        # fed by 'feed_dict'
         self.context = tf.placeholder(name='context', shape=[None, None], dtype=tf.int32)
         self.seq_len = tf.placeholder(name='sequence_length', shape=[None], dtype=tf.int32)
         self.labels = tf.placeholder(name='labels', shape=[None, cfg.num_classes], dtype=tf.float32)
-
-        #hyper-parameter placeholders
         self.lr = tf.placeholder(name='learning_rate', dtype=tf.float32)
 
         with tf.device('/gpu:0'):
             with tf.variable_scope('context_lookup_table'):
                 with open(params['default_word_emb_pkl_path'], 'rb') as f:
                     word_emb = pickle.load(f)
+
                 word_embeddings = tf.constant(word_emb, dtype=tf.float32)
+                # make lookup table for given review context
                 context_emb = tf.nn.embedding_lookup(word_embeddings, self.context)
 
             with tf.variable_scope('context_representation'):
@@ -27,11 +27,11 @@ class Model:
                 cell_bw = LSTMCell(num_units = cfg.num_units)
 
                 h,_ = bidirectional_dynamic_rnn(cell_fw, cell_bw, context_emb, sequence_length=self.seq_len, dtype=tf.float32, time_major=False)
+                #concat forward and backward hidden states
                 h = tf.concat(h, axis=-1)
                 h = self.self_attention(h)
                 weight = tf.get_variable(name='weight', shape=[2*cfg.num_units, 2*cfg.num_units], dtype=tf.float32)  ###
                 h = tf.nn.tanh(tf.matmul(h, weight))
-                h = tf.nn.dropout(h, 0.5)
 				
 				
             with tf.variable_scope('compute_logits'):
@@ -42,6 +42,7 @@ class Model:
                 self.train_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss)
 
             with tf.variable_scope('accuracy'):
+                #pred is 0 (neg) or 1 (pos)
                 self.pred = tf.argmax(tf.nn.softmax(context_logits),1,name='prediction')
                 num_correct_pred = tf.equal(self.pred, tf.argmax(self.labels, 1))
                 self.accuracy = tf.reduce_mean(tf.cast(num_correct_pred, tf.float32))
@@ -54,8 +55,8 @@ class Model:
             u_w = tf.Variable(tf.random_normal([hidden_size, 1], stddev=0.01, seed=1227))
             x = tf.tensordot(x_proj, u_w, axes=1)
             alphas = tf.nn.softmax(x, axis=1)
+            # alphas is row based
             output = tf.matmul(tf.transpose(inputs, [0, 2, 1]), alphas)
-            # alphas가 row 니까 한개의 h를 세로로 바꿔서 곱해줘야겠지.
             output = tf.squeeze(output, -1)
             return output
 
@@ -69,6 +70,7 @@ class Model:
                                           initializer=tf.constant_initializer(bias_init))
             hidden_output = tf.nn.bias_add(hidden_output, hidden_bias)
             hidden_output = activation(hidden_output)
+            hidden_output = tf.nn.dropout(hidden_output, 0.8)
 
             weight = tf.get_variable(name='weight', shape=[hidden_units, output_units], dtype=tf.float32)
             output = tf.matmul(hidden_output, weight)

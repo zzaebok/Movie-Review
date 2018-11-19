@@ -6,25 +6,23 @@ import numpy as np
 from hyperparams import params
 from data_helper import *
 
-max_length = params['max_seq_length']
 word_dict = []
 with open(params['default_word_dict_pkl_path'], 'rb') as f:
     word_dict = pickle.load(f)
-
 word_emb = np.zeros([len(word_dict), 200])
 with open(params['default_word_emb_pkl_path'], 'rb') as f:
     word_emb = pickle.load(f)
-
 tokenizer = Okt()
 SAVER_DIR = params['SAVER_DIR']
 
+#load pre trained model
 saver = tf.train.import_meta_graph(os.path.join(SAVER_DIR, 'ckpt.meta'))
 ckpt = tf.train.get_checkpoint_state(SAVER_DIR)
 config = tf.ConfigProto(allow_soft_placement=True)
 sess = tf.Session(config=config)
 saver.restore(sess, ckpt.model_checkpoint_path)
 graph = sess.graph
-#print([node.name for node in graph.as_graph_def().node])
+#print([node.name for node in graph.as_graph_def().node]) - for checking all the variables in model
 model_context = graph.get_tensor_by_name('context:0')
 model_seq_len = graph.get_tensor_by_name('sequence_length:0')
 model_labels = graph.get_tensor_by_name('labels:0')
