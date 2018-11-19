@@ -27,7 +27,7 @@ graph = sess.graph
 model_context = graph.get_tensor_by_name('context:0')
 model_seq_len = graph.get_tensor_by_name('sequence_length:0')
 model_labels = graph.get_tensor_by_name('labels:0')
-model_pred = graph.get_tensor_by_name('prediction:0')
+model_pred = graph.get_tensor_by_name('accuracy/prediction:0')
 while(1):
     sentence = input('문장을 입력해주세요. (그만하려면 z 입력)')
     if sentence == 'z':
