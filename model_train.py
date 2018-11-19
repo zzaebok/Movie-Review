@@ -54,7 +54,7 @@ with tf.Session(config=sess_config) as sess:
         for i, data in enumerate(dataset_iterator(config.dataset, word_dict, config.batch_size)):
             feed_dict={
                 model.context : data[0],
-                model.lr:config.lr-i/5000,
+                model.lr:config.lr,
                 model.seq_len:data[1],
                 model.labels:data[2]
             }
