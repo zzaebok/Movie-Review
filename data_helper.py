@@ -33,7 +33,7 @@ def make_word_dictionary(word_dict_pkl_path=params['default_word_dict_pkl_path']
             word_vocab = [word for word in word_vocab if word_vocab[word] >= params['min_vocab_count']]
             word_vocab = list(params['PAD']) + word_vocab + list(params['UNK'])
             for idx, word in enumerate(word_vocab):
-                word_dict[word] = idx+1
+                word_dict[word] = idx
         print('Making word_dict ... Done and Saved')
         with open(word_dict_pkl_path, 'wb') as f:
             pickle.dump(word_dict, f)
