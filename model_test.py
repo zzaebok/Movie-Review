@@ -4,6 +4,7 @@ from konlpy.tag import Okt
 import pickle
 import numpy as np
 from hyperparams import params
+from data_helper import *
 
 max_length = params['max_seq_length']
 word_dict = []
