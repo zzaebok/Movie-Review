@@ -50,7 +50,7 @@ class Model:
 
             with tf.variable_scope('accuracy'):
                 self.pred = tf.argmax(tf.nn.softmax(context_logits),1)
-                num_correct_pred = tf.equal(self.pred, tf.argmax(self.labels), 1)
+                num_correct_pred = tf.equal(self.pred, tf.argmax(self.labels, 1))
                 self.accuracy = tf.reduce_mean(tf.cast(num_correct_pred, tf.float32))
 
     def self_attention(self, inputs):
