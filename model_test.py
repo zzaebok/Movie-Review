@@ -40,7 +40,7 @@ while(1):
     sequence_length.append(len(tokens))
     sentence = zero_padding(sentence, word_dict)
     context = [sentence]
-    prediction = sess.run(tf.argmax(model_pred, 1), feed_dict={model_context: context, model_seq_len: sequence_length})
+    prediction = sess.run(model_pred, feed_dict={model_context: context, model_seq_len: sequence_length})
     if prediction == 0:
         print('부정입니다.')
     else:
