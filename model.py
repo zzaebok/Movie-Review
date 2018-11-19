@@ -18,7 +18,7 @@ class Model:
         self.keep_prop = tf.placeholder(name='keep_prop', dtype=tf.float32)
         self.batch_size = tf.placeholder(name='batch_size', dtype=tf.int32)
 
-        self.pred = tf.Variable(name='prediction', dtype=tf.int32)
+        self.pred = tf.Variable(tf.random_normal(shape=[1]), name='prediction',  dtype=tf.int32)
 
         with tf.device('/gpu:0'):
             with tf.variable_scope('context_lookup_table'):
