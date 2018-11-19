@@ -13,7 +13,7 @@ tokenizer = Okt()
 global_word_dict = dict()
 
 def make_word_dictionary(word_dict_pkl_path=params['default_word_dict_pkl_path'], training_data_path = params['default_training_data_path']):
-    word_dict = list()
+    word_dict = dict()
     if os.path.isfile(word_dict_pkl_path):
         with open(word_dict_pkl_path, 'rb') as f:
             word_dict = pickle.load(f)
