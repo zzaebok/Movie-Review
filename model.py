@@ -34,7 +34,7 @@ class Model:
                 h,_ = bidirectional_dynamic_rnn(cell_fw, cell_bw, context_emb, sequence_length=self.seq_len, dtype=tf.float32, time_major=False)
                 h = tf.concat(h, axis=-1)
                 h = self.self_attention(h)
-                weight = tf.get_variable(name='weight', shape=[200, 200], dtype=tf.float32)  ###
+                weight = tf.get_variable(name='weight', shape=[2*cfg.num_units, 2*cfg.num_units], dtype=tf.float32)  ###
                 h = tf.nn.tanh(tf.matmul(h, weight))
                 h = tf.nn.dropout(h, 0.75)
 
